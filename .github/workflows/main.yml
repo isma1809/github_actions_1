@@ -22,4 +22,4 @@ jobs:
 
       - name: Subir archivos a la Mac
         run: |
-          rsync -avz -e "ssh -i ~/.ssh/deploy_key" ./web/ isma@92.176.44.12:/Users/isma/Desktop/web/
+          rsync -avz -e "ssh -i ~/.ssh/deploy_key" ./web/ isma@92.176.44.12:/Users/isma/Desktop/nueva/
