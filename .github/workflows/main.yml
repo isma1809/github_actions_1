@@ -1,0 +1,25 @@
+name: Auto Deploy to Mac
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H 92.176.44.12 >> ~/.ssh/known_hosts
+
+      - name: Subir archivos a la Mac
+        run: |
+          rsync -avz -e "ssh -i ~/.ssh/deploy_key" ./web/ isma@92.176.44.12:/Users/isma/Desktop/web/
